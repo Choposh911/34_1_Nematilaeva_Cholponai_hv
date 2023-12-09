@@ -11,5 +11,6 @@ urlpatterns = [
     path('current_date/', views.current_date_view),
     path('goodbye/', views.goodbye_view),
     path('products/', views.products_list),
-    path('', views.main_view)
+    path('', views.main_view),
+    path('category/', views.categories_list)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,10 +7,15 @@
 
     {% for product in products %}
     <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
+        {% if product.img %}
+                        <img src="{{ product.img.url }}" alt="{{ product.name }}">
+                        {% else %}
+                        <p>No image available</p>
+                        {% endif %}
         <div class="card-body">
           <h5 class="card-title">{{ product.title }}</h5>
           <p class="card-text">{{ product.rate }}</p>
+          <p class="card-text">{{ product.category }}</p>
           <a href="#" class="btn btn-primary">More</a>
         </div>
       </div>

@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<h1>
+    Product
+</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Detail</title>
+</head>
+<body>
+<h1>{{ product.title }}</h1>
+<p>{{ product.content }}</p>
+<p>{{ product.rate }}</p>
+<tbody>
+{% for review in product.review.all %}
+<p>
+<tr>
+<td>{{ review }}</td>
+</tr>
+    </p>
+{% endfor %}
+</tbody>
+<img src="{{ product.img.url }}" alt="book" height="300" width="300">
+</body>
+</html>
+{% endblock %}

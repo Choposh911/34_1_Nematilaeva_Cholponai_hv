@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.shortcuts import HttpResponse, render
 import datetime
 
@@ -34,3 +34,14 @@ def main_view(request):
 def categories_list(request):
     categories = Category.objects.all()
     return render(request, 'products/category.html', {'categories': categories})
+
+
+def products_detail_view(request, id):
+    if request.method == 'GET':
+        product = get_object_or_404(Product, id=id)
+
+        context = {
+            'product': product
+        }
+
+    return render(request, 'products/product_detail.html', context)

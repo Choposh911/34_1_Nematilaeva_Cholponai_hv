@@ -4,6 +4,7 @@ import datetime
 
 from post.forms import ProductForms, ReviewForms, CategoryForms
 from post.models import Product, Category, Review
+PAGINATION_LIMIT = 3
 
 
 def hello_view(request):
@@ -23,8 +24,24 @@ def goodbye_view(request):
 
 
 def products_list(request):
-    product = Product.objects.all()
-    return render(request, 'products/product.html', {'products': product})
+    if request.method == 'GET':
+        posts = Product.objects.all().order_by('-title', 'created_at')
+        search = request.GET.get('search')
+        page = int(request.GET.get('page', 1))
+        ''' start_with, ends_with, icontains '''
+        '''and | or'''
+        if search:
+            posts = posts.filter(title__icontains=search) | posts.filter(content__icontains=search)
+        max_page = posts.__len__() / PAGINATION_LIMIT
+        max_page = round(max_page) + 1 if round(max_page) < max_page else round(max_page)
+        ''' posts splice'''
+        posts = posts[PAGINATION_LIMIT * (page - 1):PAGINATION_LIMIT * page]
+        context = {
+            'posts': posts,
+            'pages': range(1, max_page + 1)
+        }
+        return render(request, 'products/product.html', context=context)
+
 
 
 def main_view(request):

@@ -1,0 +1,19 @@
+<form action="/review/create/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Review</button>
+</form>
+
+<!-- Список обзоров -->
+{% if reviews %}
+    <h2>Reviews:</h2>
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <p>{{ review.text }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No reviews yet.</p>
+{% endif %}
